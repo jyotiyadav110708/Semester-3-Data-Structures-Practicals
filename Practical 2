@@ -1,0 +1,23 @@
+#include <iostream>
+using namespace std;
+
+void printReverse(int *arr, int n) {
+        int *ptr = arr + (n - 1);  // points to last element
+
+            while (ptr >= arr) {
+                        cout << *ptr << " ";
+                                ptr--;
+            }
+                cout << endl;
+}
+
+int main() {
+        int arr[] = {10, 20, 30, 40, 50};
+            int n = sizeof(arr) / sizeof(arr[0]);
+
+                printReverse(arr, n);
+                    return 0;
+}
+}
+            }
+}
