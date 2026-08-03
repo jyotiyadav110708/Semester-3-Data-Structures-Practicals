@@ -1,0 +1,29 @@
+#include <iostream>
+using namespace std;
+
+// Call by Value: copy is passed, original unchanged
+void byValue(int x) {
+        x = x + 10;
+            cout << "Inside byValue: " << x << endl;
+}
+
+// Call by Reference: address is passed, original changes
+void byReference(int &x) {
+        x = x + 10;
+            cout << "Inside byReference: " << x << endl;
+}
+
+int main() {
+        int a = 5;
+            byValue(a);
+                cout << "After byValue, a = " << a << endl;  // unchanged
+
+                    int b = 5;
+                        byReference(b);
+                            cout << "After byReference, b = " << b << endl;  // changed
+
+                                return 0;
+}
+}
+}
+}
