@@ -1,0 +1,93 @@
+#include <iostream>
+using namespace std;
+
+struct node {
+    int info;
+    node *left, *right;
+};
+
+node *root;
+
+node* create_node(int x) {
+    node *temp = new node;
+    temp->info = x;
+    temp->left = temp->right = NULL;
+    return temp;
+}
+
+void setleft(node *t, int x) {
+    node *p = create_node(x);
+    t->left = p;
+}
+
+void setright(node *t, int x) {
+    node *p = create_node(x);
+    t->right = p;
+}
+
+void inorder(node *t) {
+    if (t != NULL) {
+        inorder(t->left);
+        cout << t->info << " ";
+        inorder(t->right);
+    }
+}
+
+void preorder(node *t) {
+    if (t != NULL) {
+        cout << t->info << " ";
+        preorder(t->left);
+        preorder(t->right);
+    }
+}
+
+void postorder(node *t) {
+    if (t != NULL) {
+        postorder(t->left);
+        postorder(t->right);
+        cout << t->info << " ";
+    }
+}
+
+int main() {
+    int n;
+    char ch;
+    node *p, *q;
+
+    cout << "Please enter root: ";
+    cin >> n;
+    root = create_node(n);
+
+    while (true) {
+        cout << "Do you want to continue (y/n)? ";
+        cin >> ch;
+        if (ch == 'n' || ch == 'N')
+            break;
+
+        cout << "Enter value: ";
+        cin >> n;
+
+        p = q = root;
+        while (p != NULL) {
+            q = p;
+            if (p->info < n)
+                p = p->right;
+            else
+                p = p->left;
+        }
+
+        if (q->info < n)
+            setright(q, n);
+        else
+            setleft(q, n);
+    }
+
+    cout << "\nInorder: ";
+    inorder(root);
+    cout << "\nPreorder: ";
+    preorder(root);
+    cout << "\nPostorder: ";
+    postorder(root);
+
+    return 0;
+}
