@@ -1,0 +1,62 @@
+#include <iostream>
+using namespace std;
+
+int bSearch(int P[], int l, int r, int k)
+{
+    int mid;
+
+    if (l > r)
+        return -1;
+
+    mid = l + (r - l) / 2;
+
+    if (P[mid] == k)
+        return mid;
+
+    if (k < P[mid])
+        return bSearch(P, l, mid - 1, k);
+    else
+        return bSearch(P, mid + 1, r, k);
+}
+
+int main()
+{
+    int P[100], n, k;
+
+    cout << "Enter number of elements: ";
+    cin >> n;
+
+    cout << "Enter elements: ";
+    for (int i = 0; i < n; i++)
+        cin >> P[i];
+
+    
+    for (int i = 0; i < n - 1; i++)
+    {
+        for (int j = 0; j < n - i - 1; j++)
+        {
+            if (P[j] > P[j + 1])
+            {
+                int temp = P[j];
+                P[j] = P[j + 1];
+                P[j + 1] = temp;
+            }
+        }
+    }
+
+    cout << "Sorted array: ";
+    for (int i = 0; i < n; i++)
+        cout << P[i] << " ";
+
+    cout << "\nEnter element to search: ";
+    cin >> k;
+
+    int ans = bSearch(P, 0, n - 1, k);
+
+    if (ans != -1)
+        cout << "Element found at index: " << ans;
+    else
+        cout << "Element not found";
+
+    return 0;
+}
