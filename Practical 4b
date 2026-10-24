@@ -1,0 +1,92 @@
+#include <iostream>
+using namespace std;
+
+#define SIZE 5
+
+int queue1[SIZE], front = -1, rear = -1;
+
+void enqueue(int val) {
+    if ((rear + 1) % SIZE == front) {
+        cout << "Queue Overflow\n";
+        return;
+    }
+
+    if (front == -1) {
+        front = 0;
+    }
+
+    rear = (rear + 1) % SIZE;
+    queue1[rear] = val;
+
+    cout << val << " inserted\n";
+}
+
+void dequeue() {
+    if (front == -1) {
+        cout << "Queue Underflow\n";
+        return;
+    }
+
+    cout << queue1[front] << " deleted\n";
+
+    if (front == rear) {
+        front = rear = -1;
+    } else {
+        front = (front + 1) % SIZE;
+    }
+}
+
+void display() {
+    if (front == -1) {
+        cout << "Queue is empty\n";
+        return;
+    }
+
+    int i = front;
+
+    while (true) {
+        cout << queue1[i] << " ";
+
+        if (i == rear) {
+            break;
+        }
+
+        i = (i + 1) % SIZE;
+    }
+
+    cout << "\n";
+}
+
+int main() {
+    int ch, val;
+
+    while (true) {
+        cout << "\n1. Enqueue 2. Dequeue 3. Display 4. Exit\n";
+        cout << "Enter choice: ";
+        cin >> ch;
+
+        switch (ch) {
+            case 1:
+                cout << "Value: ";
+                cin >> val;
+                enqueue(val);
+                break;
+
+            case 2:
+                dequeue();
+                break;
+
+            case 3:
+                display();
+                break;
+
+            case 4:
+                return 0;
+
+            default:
+                cout << "Invalid choice\n";
+        }
+    }
+
+    return 0;
+}
