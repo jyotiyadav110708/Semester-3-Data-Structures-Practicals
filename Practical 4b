@@ -1,0 +1,52 @@
+#include <iostream>
+using namespace std;
+
+int st[50], top = -1;
+
+void push(int x) {
+    top++;
+    st[top] = x;
+}
+
+int pop() {
+    int x = st[top];
+    top--;
+    return x;
+}
+
+int cal(char op, int op1, int op2) {
+    int r;
+    if (op == '+')
+        r = op1 + op2;
+    else if (op == '-')
+        r = op1 - op2;
+    else if (op == '*')
+        r = op1 * op2;
+    else if (op == '/')
+        r = op1 / op2;
+    return r;
+}
+
+int main() {
+    char post[50];
+    int p1, p2, r, i = 0;
+    
+    cout << "Enter postfix expression: ";
+    cin.getline(post, 50);
+
+    while (post[i] != '\0') {
+        if (isdigit(post[i])) {
+            push(post[i] - '0');
+        }
+        else {
+            p2 = pop();
+            p1 = pop();
+            r = cal(post[i], p1, p2);
+            push(r);
+        }
+        i++;
+    }
+    
+    cout << "Result: " << pop() << endl;
+    return 0;
+}
